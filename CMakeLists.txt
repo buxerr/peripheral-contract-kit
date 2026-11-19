@@ -13,9 +13,11 @@ target_link_libraries(periph-generated-tests PRIVATE periph_contract)
 set_target_properties(periph-contract-tests periph-generated-tests PROPERTIES CXX_STANDARD 11 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS OFF)
 
 if(MSVC)
-    target_compile_options(periph-contract-tests periph-generated-tests PRIVATE /W4 /WX)
+    target_compile_options(periph-contract-tests PRIVATE /W4 /WX)
+    target_compile_options(periph-generated-tests PRIVATE /W4 /WX)
 else()
-    target_compile_options(periph-contract-tests periph-generated-tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+    target_compile_options(periph-contract-tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
+    target_compile_options(periph-generated-tests PRIVATE -Wall -Wextra -Wpedantic -Werror)
 endif()
 
 enable_testing()
