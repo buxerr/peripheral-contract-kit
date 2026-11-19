@@ -127,13 +127,15 @@ public:
     }
 
     Status pinMode(std::uint16_t pin, PinMode mode) {
+        std::uint8_t ignoredResponse = 0;
         return run(OperationKind::PinMode, pin, static_cast<std::uint32_t>(mode), 0,
-                   nullptr, 0, 0, nullptr, 0, nullptr);
+                   nullptr, 0, 0, &ignoredResponse, 0, nullptr);
     }
 
     Status digitalWrite(std::uint16_t pin, bool value) {
         const std::uint8_t byte = value ? 1 : 0;
-        return run(OperationKind::DigitalWrite, pin, 0, 0, &byte, 1, 0, nullptr, 0, nullptr);
+        std::uint8_t ignoredResponse = 0;
+        return run(OperationKind::DigitalWrite, pin, 0, 0, &byte, 1, 0, &ignoredResponse, 0, nullptr);
     }
 
     Status digitalRead(std::uint16_t pin, bool& value) {
@@ -161,7 +163,8 @@ public:
     }
 
     Status uartWrite(std::uint16_t port, const std::uint8_t* writeData, std::size_t writeLength) {
-        return run(OperationKind::UartWrite, port, 0, 0, writeData, writeLength, 0, nullptr, 0, nullptr);
+        std::uint8_t ignoredResponse = 0;
+        return run(OperationKind::UartWrite, port, 0, 0, writeData, writeLength, 0, &ignoredResponse, 0, nullptr);
     }
 
     Status uartRead(std::uint16_t port, std::uint8_t* responseData, std::size_t capacity,
