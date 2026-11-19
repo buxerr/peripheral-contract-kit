@@ -1,0 +1,8 @@
+{
+  "operations": [
+    { "op": "pin_mode", "pin": 4, "mode": "output" },
+    { "op": "i2c", "address": 72, "write": [16, 2], "read": [170], "timeout_ms": 25 },
+    { "op": "uart_read", "port": 1, "capacity": 8, "read": [85], "timeout_ms": 50 },
+    { "op": "i2c", "address": 32, "write": [], "read": [], "read_length": 2, "timeout_ms": 5, "status": "timeout" }
+  ]
+}
