@@ -41,6 +41,22 @@ ctest --test-dir build --output-on-failure
 
 The generated header defines `peripheral_contract_generated::installScript(hal)`. The generator accepts up to 64 operations and checks byte and buffer bounds before writing code. It has no third-party dependencies. The generated test can plug into CTest, Unity, Ceedling, or PlatformIO host tests.
 
+## Use as a CMake dependency
+
+The CMake project exports the header-only target `peripheral_contract_kit::periph_contract`. You can use a tagged GitHub release from another project:
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(peripheral_contract_kit
+    GIT_REPOSITORY https://github.com/buxerr/peripheral-contract-kit.git
+    GIT_TAG v0.1.0
+)
+FetchContent_MakeAvailable(peripheral_contract_kit)
+target_link_libraries(driver_tests PRIVATE peripheral_contract_kit::periph_contract)
+```
+
+The kit's own tests default to enabled in a standalone checkout and disabled when included as a dependency.
+
 ## Scope and limitations
 
 This kit checks driver-call contracts and buffer handling, not electrical behavior, interrupts, real timing, DMA, or a specific vendor HAL. Put a thin test seam around your platform API and use the scripted adapter there.
